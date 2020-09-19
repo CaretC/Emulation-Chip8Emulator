@@ -8,6 +8,7 @@
 #include<SDL.h>
 
 #include"config.h"
+#include"Chip8.h"
 
 // Main()
 // ======
@@ -15,7 +16,7 @@ int main(int argc, char* args[])
 {
 	// Variables
 	// ---------
-
+	Chip8 chip8;
 
 	// SDL Variables
 	// -------------

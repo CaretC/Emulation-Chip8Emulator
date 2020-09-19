@@ -18,3 +18,7 @@
 // Instructions
 // ============
 #define INSTRUCTION_LENGTH 2
+
+// Stack
+// =====
+#define MAX_STACK_DEPTH 16
