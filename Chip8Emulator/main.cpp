@@ -9,13 +9,13 @@
 
 #include"config.h"
 
-
 // Main()
 // ======
 int main(int argc, char* args[])
 {
 	// Variables
 	// ---------
+
 
 	// SDL Variables
 	// -------------

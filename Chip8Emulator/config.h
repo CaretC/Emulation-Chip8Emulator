@@ -11,3 +11,10 @@
 #define CHIP8_HEIGHT 32
 #define CHIP8_SCALE 10
 
+// Registers
+// =========
+#define NUMBER_OF_V_REGISTERS 16
+
+// Instructions
+// ============
+#define INSTRUCTION_LENGTH 2
