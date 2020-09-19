@@ -22,3 +22,10 @@
 // Stack
 // =====
 #define MAX_STACK_DEPTH 16
+
+// Keyboard
+// ========
+#define KEYBOARD_KEYS 16
+
+
+

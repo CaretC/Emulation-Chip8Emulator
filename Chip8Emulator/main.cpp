@@ -78,6 +78,14 @@ int main(int argc, char* args[])
 				case SDL_QUIT:
 					goto out;
 					break;
+
+				case SDL_KEYDOWN:
+					chip8.keyboard.KeyDown(event.key.keysym.sym);
+					break;
+
+				case SDL_KEYUP:
+					chip8.keyboard.KeyUp(event.key.keysym.sym);
+					break;
 			}
 		}
 	}

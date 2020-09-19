@@ -143,12 +143,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Chip8.cpp" />
+    <ClCompile Include="Chip8_Keyboard.cpp" />
     <ClCompile Include="Chip8_Registers.cpp" />
     <ClCompile Include="Chip8_Stack.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Chip8.h" />
+    <ClInclude Include="Chip8_Keyboard.h" />
     <ClInclude Include="Chip8_Registers.h" />
     <ClInclude Include="Chip8_Stack.h" />
     <ClInclude Include="config.h" />
