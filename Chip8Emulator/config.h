@@ -15,6 +15,10 @@
 // =========
 #define NUMBER_OF_V_REGISTERS 16
 
+// Memory
+// ======
+#define MEMORY_SIZE 4096
+
 // Instructions
 // ============
 #define INSTRUCTION_LENGTH 2
