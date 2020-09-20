@@ -14,9 +14,10 @@
 // ======
 int main(int argc, char* args[])
 {
-	// Variables
-	// ---------
+	// CHIP-8
+	// ------
 	Chip8 chip8;
+	chip8.Initialize();
 
 	// SDL Variables
 	// -------------
