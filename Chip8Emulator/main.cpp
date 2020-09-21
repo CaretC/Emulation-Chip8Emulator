@@ -10,6 +10,11 @@
 #include"config.h"
 #include"Chip8.h"
 
+// Function Prototypes
+// ====================
+void DrawPixel(SDL_Renderer* renderer, int x, int y);
+void DrawSprite(Chip8* chip8, int x, int y, unsigned short memoryAddress, int spriteSize);
+
 // Main()
 // ======
 int main(int argc, char* args[])
@@ -18,7 +23,8 @@ int main(int argc, char* args[])
 	// ------
 	Chip8 chip8;
 	chip8.Initialize();
-
+	bool screenBuffer[CHIP8_WIDTH][CHIP8_HEIGHT] = { 0 };
+	
 	// SDL Variables
 	// -------------
 	const int SCREEN_WIDTH = CHIP8_WIDTH * CHIP8_SCALE;
@@ -89,6 +95,32 @@ int main(int argc, char* args[])
 					break;
 			}
 		}
+
+		// Render Pixels
+		// -------------
+		// Get screen buffer
+		chip8.screen.GetScreenBuffer(screenBuffer);
+
+		// Clear
+		SDL_SetRenderDrawColor(renderer, 155, 188, 15, 0);
+		SDL_RenderClear(renderer);
+
+		// Draw Pixels
+		SDL_SetRenderDrawColor(renderer, 48, 98, 48, 0);
+
+		for (int x = 0; x < CHIP8_WIDTH; x++)
+		{
+			for (int y = 0; y < CHIP8_HEIGHT; y++)
+			{
+				if (screenBuffer[x][y])
+				{
+					DrawPixel(renderer, x, y);
+				}
+			}
+		}
+
+		// Render to screen
+		SDL_RenderPresent(renderer);
 	}
 
 out:
@@ -105,4 +137,24 @@ out:
 	// ---------
 	std::cout << "Exiting programme..." << std::endl;
 	return 0;
+}
+
+// Functions
+// =========
+void DrawPixel(SDL_Renderer* renderer, int x, int y)
+{
+	SDL_Rect pixel;
+	pixel.x = x * CHIP8_SCALE;
+	pixel.y = y * CHIP8_SCALE;
+	pixel.w = CHIP8_SCALE;
+	pixel.h = CHIP8_SCALE;
+	SDL_RenderFillRect(renderer, &pixel);
+}
+
+void DrawSprite(Chip8* chip8, int x, int y, unsigned short memoryAddress, int spriteSize)
+{
+	unsigned char sprite[15] = { 0 };
+
+	chip8->memory.GetMemoryBlock(sprite, memoryAddress, spriteSize);
+	chip8->screen.DrawSprite(x, y, sprite, spriteSize);
 }

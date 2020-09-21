@@ -13,6 +13,6 @@ void Chip8::Initialize()
 void Chip8::loadDefaultCharacterSet()
 {
 	std::cout << "Loading default character set into memory..." << std::endl;
-	memory.SetMemoryBlock(defaultCharacterSet, 0x00);
+	memory.SetMemoryBlock(defaultCharacterSet, 0x00, 80);
 	std::cout << "Default character set loaded" << std::endl;
 }

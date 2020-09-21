@@ -146,6 +146,7 @@
     <ClCompile Include="Chip8_Keyboard.cpp" />
     <ClCompile Include="Chip8_Memory.cpp" />
     <ClCompile Include="Chip8_Registers.cpp" />
+    <ClCompile Include="Chip8_Screen.cpp" />
     <ClCompile Include="Chip8_Stack.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -154,6 +155,7 @@
     <ClInclude Include="Chip8_Keyboard.h" />
     <ClInclude Include="Chip8_Memory.h" />
     <ClInclude Include="Chip8_Registers.h" />
+    <ClInclude Include="Chip8_Screen.h" />
     <ClInclude Include="Chip8_Stack.h" />
     <ClInclude Include="config.h" />
   </ItemGroup>

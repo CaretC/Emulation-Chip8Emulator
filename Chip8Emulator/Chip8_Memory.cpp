@@ -12,15 +12,15 @@ void Chip8_Memory::SetMemoryByte(int index, unsigned char value)
 	}
 }
 
-void Chip8_Memory::SetMemoryBlock(const char data[], unsigned short loadStartAddress)
+void Chip8_Memory::SetMemoryBlock(unsigned char data[], unsigned short loadStartAddress, int blockSize)
 {
 	if (DEBUG_MODE == 1)
 	{
-		std::cout << "DEBUG: Storing " << sizeof(data) << " bytes in memory starting at address "
+		std::cout << "DEBUG: Storing " << blockSize << " bytes in memory starting at address "
 			<< std::hex << loadStartAddress << std::endl;
 	}
 
-	memcpy(&memory[loadStartAddress], data, sizeof(data));
+	memcpy(&memory[loadStartAddress], data, blockSize);
 }
 
 
@@ -32,6 +32,14 @@ unsigned char Chip8_Memory::GetMemoryByte(int index)
 	}
 
 	return memory[index];
+}
+
+void Chip8_Memory::GetMemoryBlock(unsigned char (&block)[15], unsigned short startAddress, int blockSize)
+{
+	for (int i = 0; i < blockSize; i++)
+	{
+		block[i] = memory[startAddress + i];
+	}
 }
 
 unsigned short Chip8_Memory::GetInstruction(int index)
