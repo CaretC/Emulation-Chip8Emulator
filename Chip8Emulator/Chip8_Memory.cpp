@@ -34,7 +34,7 @@ unsigned char Chip8_Memory::GetMemoryByte(int index)
 	return memory[index];
 }
 
-void Chip8_Memory::GetMemoryBlock(unsigned char (&block)[15], unsigned short startAddress, int blockSize)
+void Chip8_Memory::GetSprite(unsigned char (&block)[15], unsigned short startAddress, int blockSize)
 {
 	for (int i = 0; i < blockSize; i++)
 	{

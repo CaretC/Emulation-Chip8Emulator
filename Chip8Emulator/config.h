@@ -19,6 +19,10 @@
 // ======
 #define MEMORY_SIZE 4096
 
+// Delay Period
+// ============
+#define CHIP8_DELAY 16
+
 // Instructions
 // ============
 #define INSTRUCTION_LENGTH 2

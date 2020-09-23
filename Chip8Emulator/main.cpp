@@ -6,6 +6,7 @@
 // ========
 #include<iostream>
 #include<SDL.h>
+#include<Windows.h>
 
 #include"config.h"
 #include"Chip8.h"
@@ -24,6 +25,9 @@ int main(int argc, char* args[])
 	Chip8 chip8;
 	chip8.Initialize();
 	bool screenBuffer[CHIP8_WIDTH][CHIP8_HEIGHT] = { 0 };
+
+	// TODO: Remove Test
+	chip8.registers.SetSTRegister(50);
 	
 	// SDL Variables
 	// -------------
@@ -121,6 +125,30 @@ int main(int argc, char* args[])
 
 		// Render to screen
 		SDL_RenderPresent(renderer);
+		// TODO: Put RenderPixcels into a function to neaten up
+
+		// Delay Timer
+		if (chip8.registers.GetDTRegister() > 0)
+		{
+			if (DEBUG_MODE == 1)
+			{
+				std::cout << "DEBUG: DELAY..." << std::endl;
+				Sleep(CHIP8_DELAY);
+				chip8.registers.DecrementDTRegister();
+			}
+		}
+
+		// Sound Timer
+		if (chip8.registers.GetSTRegister() > 0)
+		{
+			if (DEBUG_MODE == 1)
+			{
+				std::cout << "DEBUG: BEEP" << std::endl;
+			}
+
+			Beep(800, (100 * chip8.registers.GetSTRegister()));
+			chip8.registers.SetSTRegister(0);
+		}
 	}
 
 out:
@@ -155,6 +183,6 @@ void DrawSprite(Chip8* chip8, int x, int y, unsigned short memoryAddress, int sp
 {
 	unsigned char sprite[15] = { 0 };
 
-	chip8->memory.GetMemoryBlock(sprite, memoryAddress, spriteSize);
+	chip8->memory.GetSprite(sprite, memoryAddress, spriteSize);
 	chip8->screen.DrawSprite(x, y, sprite, spriteSize);
 }

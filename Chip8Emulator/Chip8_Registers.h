@@ -29,11 +29,13 @@ class Chip8_Registers
 		//  DT
 		// ====
 		void SetDTRegister(unsigned char value);
+		void DecrementDTRegister();
 		unsigned char GetDTRegister();
 
 		//  ST
 		// ====
 		void SetSTRegister(unsigned char value);
+		void DecrementSTRegister();
 		unsigned char GetSTRegister();
 
 		//  PC

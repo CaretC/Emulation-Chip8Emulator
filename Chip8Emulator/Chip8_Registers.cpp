@@ -45,6 +45,12 @@ void Chip8_Registers::SetDTRegister(unsigned char value)
     DT = value;
 }
 
+void Chip8_Registers::DecrementDTRegister()
+{
+    // Decrement Delay Timer Regiser
+    DT -= 1;
+}
+
 unsigned char Chip8_Registers::GetDTRegister()
 {
     // Return Delay Timer Register
@@ -57,6 +63,12 @@ void Chip8_Registers::SetSTRegister(unsigned char value)
 {
     // Set Sound Timer Register
     ST = value;
+}
+
+void Chip8_Registers::DecrementSTRegister()
+{
+    // Decrement Sound Timer Register
+    ST -= 1;
 }
 
 unsigned char Chip8_Registers::GetSTRegister()
