@@ -7,9 +7,11 @@
 #include<iostream>
 #include<SDL.h>
 #include<Windows.h>
+#include<string>
 
 #include"config.h"
 #include"Chip8.h"
+#include"Chip8_ROM_Loader.h"
 
 // Function Prototypes
 // ====================
@@ -27,7 +29,9 @@ int main(int argc, char* args[])
 	bool screenBuffer[CHIP8_WIDTH][CHIP8_HEIGHT] = { 0 };
 
 	// TODO: Remove Test
-	chip8.registers.SetSTRegister(50);
+	std::string romPath = "invaders.ch8";
+	Chip8_ROM_Loader romLoader;
+	romLoader.loadROM(&chip8.memory, romPath);
 	
 	// SDL Variables
 	// -------------

@@ -146,6 +146,7 @@
     <ClCompile Include="Chip8_Keyboard.cpp" />
     <ClCompile Include="Chip8_Memory.cpp" />
     <ClCompile Include="Chip8_Registers.cpp" />
+    <ClCompile Include="Chip8_ROM_Loader.cpp" />
     <ClCompile Include="Chip8_Screen.cpp" />
     <ClCompile Include="Chip8_Stack.cpp" />
     <ClCompile Include="main.cpp" />
@@ -155,9 +156,15 @@
     <ClInclude Include="Chip8_Keyboard.h" />
     <ClInclude Include="Chip8_Memory.h" />
     <ClInclude Include="Chip8_Registers.h" />
+    <ClInclude Include="Chip8_ROM_Loader.h" />
     <ClInclude Include="Chip8_Screen.h" />
     <ClInclude Include="Chip8_Stack.h" />
     <ClInclude Include="config.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="invaders.ch8">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </None>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -360,3 +360,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Ignore any CHIP-8 ROM files
+*.ch8

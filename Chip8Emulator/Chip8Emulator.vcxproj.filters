@@ -36,6 +36,9 @@
     <ClCompile Include="Chip8_Screen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Chip8_ROM_Loader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="config.h">
@@ -59,5 +62,13 @@
     <ClInclude Include="Chip8_Screen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Chip8_ROM_Loader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="invaders.ch8">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

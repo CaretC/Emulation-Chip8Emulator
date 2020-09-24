@@ -7,7 +7,7 @@ void Chip8_Memory::SetMemoryByte(int index, unsigned char value)
 
 	if (DEBUG_MODE == 1)
 	{
-		std::cout << "DEBUG: Storing " << std::hex << value << "at memory position "
+		std::cout << "DEBUG: Storing 0x" << std::hex << (int)value << " at memory position 0x"
 			<< index << std::endl;
 	}
 }

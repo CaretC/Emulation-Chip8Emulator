@@ -9,7 +9,7 @@ class Chip8_Registers
 		unsigned short I = 0;
 		unsigned char DT = 0; // Delay Timer
 		unsigned char ST = 0; // Sound Timer
-		unsigned short PC = 0; // Programme Counter
+		unsigned short PC = CHIP8_PROGRAMME_ENTRY_POINT; // Programme Counter
 		unsigned char SP = 0;
 
 		// Checks the index is below NUMBER_OF_V_REGISTERS

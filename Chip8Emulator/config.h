@@ -35,5 +35,11 @@
 // ========
 #define KEYBOARD_KEYS 16
 
+// ROM Load Address
+// ================
+#define CHIP8_ROM_LOAD_ADDRESS 0x200
+
+// Programme Entry Point
+#define CHIP8_PROGRAMME_ENTRY_POINT 0x200
 
 
