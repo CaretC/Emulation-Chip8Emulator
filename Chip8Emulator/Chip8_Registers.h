@@ -19,7 +19,7 @@ class Chip8_Registers
 		//  V
 		// ===
 		void SetVRegister(int index, unsigned char value);
-		unsigned char GetVRegister(int index);
+		unsigned char GetVRegister(unsigned char index);
 
 		//  I 
 		// ===

@@ -17,6 +17,7 @@ class Chip8
 		Chip8_Screen screen;
 
 		void Initialize();
+		void Execute(unsigned short opcode);
 
 	private:
 		unsigned char defaultCharacterSet[16 * 5] = {
@@ -39,5 +40,9 @@ class Chip8
 		};
 
 		void loadDefaultCharacterSet();
+
+		void executeExtended(unsigned short opcode);
+
+		void exectue0x8000(unsigned short opcode, unsigned char x, unsigned char y);
 };
 

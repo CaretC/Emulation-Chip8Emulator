@@ -153,6 +153,11 @@ int main(int argc, char* args[])
 			Beep(800, (100 * chip8.registers.GetSTRegister()));
 			chip8.registers.SetSTRegister(0);
 		}
+
+		// Fetch and execute opcode
+		unsigned short opcode = chip8.memory.GetInstruction(chip8.registers.GetPCRegister());
+		chip8.Execute(opcode);
+		chip8.registers.IncrementPCRegister();
 	}
 
 out:

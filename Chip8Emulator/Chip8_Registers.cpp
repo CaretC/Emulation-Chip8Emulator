@@ -14,7 +14,7 @@ void Chip8_Registers::SetVRegister(int index, unsigned char value)
     V[index] = value;
 }
 
-unsigned char Chip8_Registers::GetVRegister(int index)
+unsigned char Chip8_Registers::GetVRegister(unsigned char index)
 {
     // Check index is in bounds
     indexInBounds(index);
