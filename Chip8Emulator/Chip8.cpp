@@ -48,7 +48,7 @@ void Chip8::executeExtended(unsigned short opcode)
 	// Parse relevant parameters
 	unsigned short nnn = opcode & 0x0FFF;
 	unsigned char x = opcode >> 8 & 0x000F;
-	unsigned char y = opcode >> 8 & 0x00F0;
+	unsigned char y = opcode >> (8 + 4) & 0x000F;
 	unsigned short kk = opcode & 0x00FF;
 	unsigned char n = opcode & 0x000F;
 
