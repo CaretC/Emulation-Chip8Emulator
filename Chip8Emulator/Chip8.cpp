@@ -51,6 +51,8 @@ void Chip8::executeExtended(unsigned short opcode)
 	unsigned char y = opcode >> (8 + 4) & 0x000F;
 	unsigned short kk = opcode & 0x00FF;
 	unsigned char n = opcode & 0x000F;
+	unsigned char tmp;
+	unsigned short tmpL;
 
 	switch (opcode & 0xF000)
 	{
@@ -94,6 +96,63 @@ void Chip8::executeExtended(unsigned short opcode)
 			exectue0x8000(opcode, x, y);
 			break;
 
+		case 0x9000:
+			std::cout << "SNE Vx, Vy" << std::endl;
+			if (registers.GetVRegister(x) != registers.GetVRegister(y)) registers.IncrementPCRegister();
+			break;
+
+		case 0xA000:
+			std::cout << "LD I " << nnn << std::endl;
+			registers.SetIRegister(nnn);
+			break;
+
+		case 0xB000:
+			std::cout << "JP V0, addr" << std::endl;
+			tmpL = nnn + registers.GetVRegister(0x00);
+			registers.SetPCRegister(tmpL);
+			break;
+			
+		case 0xC000:
+			std::cout << "RND Vx, byte" << std::endl;
+			srand(clock());
+			registers.SetVRegister(x, ((rand() % 255) & kk));
+			break;
+
+		case 0xD000:
+		{
+			std::cout << "DRW Vx, Vy, nibble" << std::endl;
+			unsigned char sprite[15] = { 0 };
+			memory.GetSprite(sprite, registers.GetIRegister(), n);
+			registers.SetVRegister(0x0F, screen.DrawSprite(
+				registers.GetVRegister(x),
+				registers.GetVRegister(y),
+				sprite,
+				n
+			));
+			break;
+		}
+
+		case 0xE000:
+		{
+			switch (opcode & 0x0FF)
+			{
+				case 0x9E:
+					std::cout << "SKP Vx" << std::endl;
+					if (keyboard.IsKeyDownInt(registers.GetVRegister(x))) registers.IncrementPCRegister();
+					break;
+
+				case 0xA1:
+					std::cout << "SKNP Vx" << std::endl;
+					if (!keyboard.IsKeyDownInt(registers.GetVRegister(x))) registers.IncrementPCRegister();
+					break;
+			}
+
+			break;
+		}
+
+		case 0xF000:
+			exectue0xF000(opcode, x);
+			break;
 	}
 }
 
@@ -157,5 +216,95 @@ void Chip8::exectue0x8000(unsigned short opcode, unsigned char x, unsigned char 
 			registers.SetVRegister(0x0F, (registers.GetVRegister(x) & 0x100000000));
 			registers.SetVRegister(x, (registers.GetVRegister(x) * 2));
 			break;
+	}
+}
+
+void Chip8::exectue0xF000(unsigned short opcode, unsigned char x)
+{
+	switch (opcode & 0x0FF)
+	{
+		case 0x07:
+			std::cout << "LD Vx, DT" << std::endl;
+			registers.SetVRegister(x, registers.GetDTRegister());
+			break;
+
+		case 0x0A:			
+			std::cout << "LD Vx, K" << std::endl;
+			registers.SetVRegister(x, keyboard.MapKey(waitForKeyPress()));
+			break;
+
+		case 0x15:
+			std::cout << "LD DT, Vx" << std::endl;
+			registers.SetDTRegister(registers.GetVRegister(x));
+			break;
+
+		case 0x18:
+			std::cout << "LD ST, Vx" << std::endl;
+			registers.SetSTRegister(registers.GetVRegister(x));
+			break;
+
+		case 0x1E:
+			std::cout << "ADD I, Vx" << std::endl;
+			registers.SetIRegister(registers.GetIRegister() + registers.GetVRegister(x));
+			break;
+
+		case 0x29:
+			std::cout << "LD F, Vx" << std::endl;
+			registers.SetIRegister(0x00 + (5 * registers.GetVRegister(x)));
+			break;
+
+		case 0x33:
+		{
+			std::cout << "LD B, Vx" << std::endl;
+
+			unsigned char hundreds = registers.GetVRegister(x) / 100;
+			unsigned char tens = registers.GetVRegister(x) / 10 % 10;
+			unsigned char units = registers.GetVRegister(x) % 10;
+
+			memory.SetMemoryByte(registers.GetIRegister(), hundreds);
+			memory.SetMemoryByte((registers.GetIRegister() + 1), tens);
+			memory.SetMemoryByte((registers.GetIRegister() + 2), units);
+			break;
+		}
+
+		case 0x55:
+		{
+			std::cout << "LD [I], Vx" << std::endl;
+
+			for (int i = 0; i <= x; i++)
+			{
+				memory.SetMemoryByte((registers.GetIRegister() + i), registers.GetVRegister(i));
+			}
+
+			break;
+		}
+
+		case 0x65:
+		{
+			std::cout << "LD Vx, [I]" << std::endl;
+
+			for (int i = 0; i <= x; i++)
+			{
+				registers.SetVRegister(i, memory.GetMemoryByte(registers.GetIRegister() + i));
+			}
+
+			break;
+		}
+	}
+}
+
+SDL_Keycode Chip8::waitForKeyPress()
+{
+	SDL_Event event;
+
+	while (SDL_WaitEvent(&event))
+	{
+		if (event.type == SDL_KEYDOWN)
+		{
+			if (keyboard.IsValidKey(event.key.keysym.sym))
+			{
+				return event.key.keysym.sym;
+			}
+		}
 	}
 }

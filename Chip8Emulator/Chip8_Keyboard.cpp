@@ -4,7 +4,7 @@
 // ++++++
 void Chip8_Keyboard::KeyDown(SDL_Keycode key)
 {
-    int mappedKey = mapKey(key);
+    int mappedKey = MapKey(key);
 
     if (mappedKey != -1)
     {
@@ -20,7 +20,7 @@ void Chip8_Keyboard::KeyDown(SDL_Keycode key)
 
 void Chip8_Keyboard::KeyUp(SDL_Keycode key)
 {
-    int mappedKey = mapKey(key);
+    int mappedKey = MapKey(key);
 
     if (mappedKey != -1)
     {
@@ -36,7 +36,7 @@ void Chip8_Keyboard::KeyUp(SDL_Keycode key)
 
 bool Chip8_Keyboard::IsKeyDown(SDL_Keycode key)
 {
-    int mappedKey = mapKey(key);
+    int mappedKey = MapKey(key);
 
     if (mappedKey != -1)
     {
@@ -48,9 +48,32 @@ bool Chip8_Keyboard::IsKeyDown(SDL_Keycode key)
     }
 }
 
-// Private
-// +++++++
-int Chip8_Keyboard::mapKey(SDL_Keycode key)
+bool Chip8_Keyboard::IsKeyDownInt(int key)
+{
+    if (key < KEYBOARD_KEYS)
+    {
+        return keyboard[key];
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool Chip8_Keyboard::IsValidKey(SDL_Keycode key)
+{
+    for (int i = 0; i < KEYBOARD_KEYS; i++)
+    {
+        if (keyMap[i] == key)
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+int Chip8_Keyboard::MapKey(SDL_Keycode key)
 {
     for (int i = 0; i < KEYBOARD_KEYS; i++)
     {

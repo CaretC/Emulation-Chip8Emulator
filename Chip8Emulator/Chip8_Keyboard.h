@@ -30,11 +30,14 @@ class Chip8_Keyboard
 			SDLK_f
 		};
 
-		int mapKey(SDL_Keycode key);
+		
 
 	public:
+		int MapKey(SDL_Keycode key);
 		void KeyDown(SDL_Keycode key);
 		void KeyUp(SDL_Keycode key);
 		bool IsKeyDown(SDL_Keycode key);
+		bool IsKeyDownInt(int key);
+		bool IsValidKey(SDL_Keycode key);
 };
 

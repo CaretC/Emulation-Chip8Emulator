@@ -162,7 +162,13 @@
     <ClInclude Include="config.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="brix.ch8">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </None>
     <None Include="invaders.ch8">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </None>
+    <None Include="missile.ch8">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </None>
   </ItemGroup>

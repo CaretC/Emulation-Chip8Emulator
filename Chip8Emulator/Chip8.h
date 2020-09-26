@@ -1,5 +1,8 @@
 #pragma once
 #include<iostream>
+#include<stdlib.h>
+#include<time.h>
+#include<SDL.h>
 
 #include"Chip8_Registers.h"
 #include"Chip8_Memory.h"
@@ -44,5 +47,9 @@ class Chip8
 		void executeExtended(unsigned short opcode);
 
 		void exectue0x8000(unsigned short opcode, unsigned char x, unsigned char y);
+
+		void exectue0xF000(unsigned short opcode, unsigned char x);
+
+		SDL_Keycode waitForKeyPress();
 };
 

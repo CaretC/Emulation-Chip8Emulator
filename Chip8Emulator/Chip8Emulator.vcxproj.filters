@@ -70,5 +70,11 @@
     <None Include="invaders.ch8">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="brix.ch8">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="missile.ch8">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
