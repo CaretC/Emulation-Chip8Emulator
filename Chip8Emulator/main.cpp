@@ -29,7 +29,7 @@ int main(int argc, char* args[])
 	bool screenBuffer[CHIP8_WIDTH][CHIP8_HEIGHT] = { 0 };
 
 	// TODO: Remove Test
-	std::string romPath = "missile.ch8";
+	std::string romPath = "invaders.ch8";
 	Chip8_ROM_Loader romLoader;
 	romLoader.loadROM(&chip8.memory, romPath);
 	
