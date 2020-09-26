@@ -8,7 +8,7 @@ void Chip8_Stack::Push(Chip8_Registers* registers, unsigned short value)
 
     if (DEBUG_MODE == 1)
     {
-        std::cout << "DEBUG: Pushing " << value << " to stack index " << registers->GetSPRegister() << std::endl;
+        std::cout << "DEBUG: Pushing " << value << " to stack index " << (int)registers->GetSPRegister() << std::endl;
     }
 
     stack[registers->GetSPRegister()] = value;
@@ -25,7 +25,7 @@ unsigned short Chip8_Stack::Pop(Chip8_Registers* registers)
 
     if (DEBUG_MODE == 1)
     {
-        std::cout << "DEBUG: Popping value from stack index " << registers->GetSPRegister() << std::endl;
+        std::cout << "DEBUG: Popping value from stack index " << (int)registers->GetSPRegister() << std::endl;
     }
 
     return stack[registers->GetSPRegister()];
