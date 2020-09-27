@@ -3,6 +3,7 @@
 #include"../Chip8Emulator/config.h"
 #include"../Chip8Emulator/Chip8_Stack.h"
 #include"../Chip8Emulator/Chip8_Registers.h"
+#include"../Chip8Emulator/Chip8_Memory.h"
 
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -81,12 +82,63 @@ namespace UnitTestsChip8Emulator
 				Assert().IsTrue(registers.GetSPRegister() == 0);
 			}
 	};
+
 	TEST_CLASS(UnitTestsChip8_Memory)
 	{
-	public:
-
-		TEST_METHOD(TestMethod1)
+		private:
+			Chip8_Memory memory;
+		public:
+		TEST_METHOD(GetSetByte)
 		{
+			memory.SetMemoryByte(0x01, 0x10);
+			Assert().IsTrue(memory.GetMemoryByte(0x01) == 0x10);
+		}
+
+		TEST_METHOD(SetBlock)
+		{
+			unsigned char testBlock[15];
+			
+			for (int i = 0; i < 15; i++)
+			{
+				testBlock[i] = 0x30 + i;
+			}
+
+			memory.SetMemoryBlock(testBlock, 0x200, 15);
+
+			for (int i = 0; i < 15; i++)
+			{
+				Assert().IsTrue(memory.GetMemoryByte(0x200 + i) == 0x30 + i);
+			}
+		}
+
+		TEST_METHOD(LoadInstruction)
+		{
+			memory.SetMemoryByte(0x33, 0x20);
+			memory.SetMemoryByte(0x34, 0x30);
+
+			unsigned short testInstruction = memory.GetMemoryByte(0x33) << 8 | memory.GetMemoryByte(0x34);
+			Assert().IsTrue(testInstruction == memory.GetInstruction(0x33));
+		}
+
+		TEST_METHOD(GetSprite)
+		{
+			unsigned char testSprite[15];
+
+			for (int i = 0; i < 15; i++)
+			{
+				testSprite[i] = 0x01 + i;
+			}
+
+			memory.SetMemoryBlock(testSprite, 0x300, 15);
+
+			unsigned char sprite[15];
+
+			memory.GetSprite(sprite, 0x300, 15);
+
+			for (int i = 0; i < 15; i++)
+			{
+				Assert().IsTrue(testSprite[i] == sprite[i]);
+			}
 		}
 	};
 
