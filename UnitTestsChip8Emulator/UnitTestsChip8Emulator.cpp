@@ -4,6 +4,7 @@
 #include"../Chip8Emulator/Chip8_Stack.h"
 #include"../Chip8Emulator/Chip8_Registers.h"
 #include"../Chip8Emulator/Chip8_Memory.h"
+#include"../Chip8Emulator/Chip8_Keyboard.h"
 
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -144,11 +145,72 @@ namespace UnitTestsChip8Emulator
 
 	TEST_CLASS(UnitTestsChip8_Keyboard)
 	{
-	public:
+		private:
+			Chip8_Keyboard keyboard;
 
-		TEST_METHOD(TestMethod1)
-		{
-		}
+			SDL_Keycode keyMap[KEYBOARD_KEYS] =
+			{
+				SDLK_0,
+				SDLK_1,
+				SDLK_2,
+				SDLK_3,
+				SDLK_4,
+				SDLK_5,
+				SDLK_6,
+				SDLK_7,
+				SDLK_8,
+				SDLK_9,
+				SDLK_a,
+				SDLK_b,
+				SDLK_c,
+				SDLK_d,
+				SDLK_e,
+				SDLK_f
+			};
+
+		public:
+			TEST_METHOD(Keys)
+			{
+				for (int i = 0; i < KEYBOARD_KEYS; i++)
+				{
+					keyboard.KeyDown(keyMap[i]);
+					Assert().IsTrue(keyboard.IsKeyDown(keyMap[i]));
+					keyboard.KeyUp(keyMap[i]);
+					Assert().IsTrue(!keyboard.IsKeyDown(keyMap[i]));
+				}
+			}
+
+			TEST_METHOD(KeyMap)
+			{
+				for (int i = 0; i < KEYBOARD_KEYS; i++)
+				{
+					Assert().IsTrue(keyboard.MapKey(keyMap[i]) == i);
+				}
+
+				Assert().IsTrue(keyboard.MapKey(17) == -1);
+			}
+
+			TEST_METHOD(IsValidKey)
+			{
+				for (int i = 0; i < KEYBOARD_KEYS; i++)
+				{
+					Assert().IsTrue(keyboard.IsValidKey(keyMap[i]));
+				}
+
+				Assert().IsFalse(keyboard.IsValidKey(17));
+			}
+
+			TEST_METHOD(KeyByInt)
+			{
+				for (int i = 0; i < KEYBOARD_KEYS; i++)
+				{
+					keyboard.KeyDown(keyMap[i]);
+					Assert().IsTrue(keyboard.IsKeyDownInt(i));
+					keyboard.KeyUp(keyMap[i]);
+					Assert().IsFalse(keyboard.IsKeyDownInt(i));
+				}
+			}
+
 	};
 
 	TEST_CLASS(UnitTestsChip8_Screen)
